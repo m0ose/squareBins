@@ -100,6 +100,16 @@
         assert.ok( latsum > 1, "Passed!" )
       })
 
+       QUnit.test( "xy2binxy", function( assert ) {
+        bins4 = new squareBins({minX:-107, maxX:-105, minY:34, maxY:38, width:10, height:10})
+        var a = bins4.binxy2xy(4.1,4.1)
+        var b = bins4.xy2binxy(a[0],a[1])
+        assert.equal( b[0], 4, "Passed!" )
+        assert.equal( b[1], 4, "Passed!" )
+
+      })
+
+
     }
 
     //setTimeout(runTests,2500)
