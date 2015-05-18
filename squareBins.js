@@ -45,6 +45,8 @@ function squareBins(options) {
   this.xy2binxy = function(x,y) {
     var binX = Math.floor(scaleValue( myOpts.minX, x, myOpts.maxX, 0, myOpts.width))
     var binY = Math.floor(scaleValue( myOpts.minY, y, myOpts.maxY, 0, myOpts.height))
+    binX = Math.min(myOpts.width-1, binX)
+    binY = Math.min(myOpts.height-1, binY)  
     return [binX, binY]
   }
 

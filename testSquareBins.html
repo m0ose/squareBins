@@ -9,12 +9,12 @@
     var bins1, bins2, bins3, bins4
     function runTests() {
       QUnit.test( "hello test", function( assert ) {
-        assert.ok( 1 == "1", "Passed!" );
+        assert.ok( 1 == "1", "Passed!" )
       });
 
       QUnit.test( "create bin", function( assert ) {
         bins1 = new squareBins()
-        assert.ok( bins1 != null, "Passed!" );
+        assert.ok( bins1 != null, "Passed!" )
       });
 
       QUnit.test( "add  to bin", function( assert ) {
@@ -22,10 +22,12 @@
         bins2.addPoint(0.2, 0.3)
         bins2.addPoint(0.2, 0.3)
         bins2.addPoint(0.2, 0.3)
+        bins2.addPoint(1.0, 1.0)
         bins2.addPoint(0.9, 0.0, "woot")
-        assert.ok( bins2.bins[9][0].length == 1, "Passed!" );
-        assert.ok( bins2.bins[2][3].length == 3, "Passed!" );
-        assert.ok( bins2.bins[9][0][0].val == "woot", "Passed!" );
+        assert.ok( bins2.bins[9][0].length == 1, "Passed!" )
+        assert.ok( bins2.bins[2][3].length == 3, "Passed!" )
+        assert.ok( bins2.bins[9][9].length == 1, "Passed!" )
+        assert.ok( bins2.bins[9][0][0].val == "woot", "Passed!" )
       });
 
       QUnit.test( "add to different sized bins", function( assert ) {
@@ -78,7 +80,7 @@
           }
         })
         console.log(res)
-        assert.equal( res.toString(), "1,2,3,4,5,6", "Passed!" );
+        assert.equal( res.toString(), "1,2,3,4,5,6", "Passed!" )
       });
 
       QUnit.test( "lat lon example", function( assert ) {
@@ -95,7 +97,7 @@
             })
           }
         })
-        assert.ok( latsum > 1, "Passed!" );
+        assert.ok( latsum > 1, "Passed!" )
       })
 
     }
