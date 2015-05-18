@@ -48,6 +48,12 @@ function squareBins(options) {
     return [binX, binY]
   }
 
+  /*
+    Traverse like your reading a book(in chinese)
+    |_V_|_V_|_V_|
+    |_V_|_V_|_V_|
+    |_V_|_V_|_V_|
+  */
   this.forEachBin_top2bottom = function(cb) {
     for(var x=0; x<this.bins.length; x++) {
       for( var y=0; y<this.bins[x].length; y++) {
@@ -56,6 +62,12 @@ function squareBins(options) {
     }
   }
 
+  /*
+    Traverse like your reading a book(in english)
+    |_->_|_->_|_->_|
+    |_->_|_->_|_->_|
+    |_->_|_->_|_->_|
+  */
   this.forEachBin_left2right = function(cb) {
     for( var y=0; y<this.bins[0].length; y++) {
       for(var x=0; x<this.bins.length; x++) {
@@ -64,6 +76,12 @@ function squareBins(options) {
     }
   }
 
+  /*
+    zigzag through the bins
+    |_->_|_->_|_->_|
+    |_<-_|_<-_|_<-_|
+    |_->_|_->_|_->_|
+  */
   this.forEachBin_zigzag = function(cb) {
     for( var y=0; y<this.bins[0].length; y++) {
       for(var x=0; x<this.bins.length; x++) {
@@ -82,4 +100,6 @@ function squareBins(options) {
 
   this.init()
 }
+
+//return squareBins
 

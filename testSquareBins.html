@@ -81,7 +81,22 @@
         assert.equal( res.toString(), "1,2,3,4,5,6", "Passed!" );
       });
 
-
+      QUnit.test( "lat lon example", function( assert ) {
+        bins4 = new squareBins({minX:-107, maxX:-105, minY:34, maxY:38, width:10, height:10})
+        bins4.addPoint(-106.84, 35.6, "almost a city")
+        bins4.addPoint(-106.83, 35.6, "a house")
+        var latsum = 0
+        bins4.forEachBin_zigzag( function(bin) {
+          if( bin.length > 0 ) {
+            console.log('going into bin')
+            bin.forEach(function(v){ 
+              console.log(v.x, v.y, v.val)
+              latsum += v.y
+            })
+          }
+        })
+        assert.ok( latsum > 1, "Passed!" );
+      })
 
     }
 
