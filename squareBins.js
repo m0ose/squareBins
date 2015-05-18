@@ -50,6 +50,12 @@ function squareBins(options) {
     return [binX, binY]
   }
 
+  this.binxy2xy = function(x,y) {
+    var x2 = Math.floor(this.scaleValue( 0, x, myOpts.width, myOpts.minX, myOpts.maxX))
+    var y2 = Math.floor(this.scaleValue( 0, y, myOpts.height, myOpts.minY, myOpts.maxY))
+    return [x2, y2]
+  }
+
   /*
     Traverse like your reading a book(in chinese)
     |_V_|_V_|_V_|
