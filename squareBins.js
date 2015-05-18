@@ -26,7 +26,7 @@ function squareBins(options) {
     }
   }
 
-  function scaleValue(minIn, val, maxIn, minOut, maxOut) {
+  this.scaleValue = function(minIn, val, maxIn, minOut, maxOut) {
     var rangeIn = maxIn - minIn
     var a = (val-minIn)/rangeIn
     var rangeOut = maxOut - minOut
@@ -43,8 +43,8 @@ function squareBins(options) {
   }
 
   this.xy2binxy = function(x,y) {
-    var binX = Math.floor(scaleValue( myOpts.minX, x, myOpts.maxX, 0, myOpts.width))
-    var binY = Math.floor(scaleValue( myOpts.minY, y, myOpts.maxY, 0, myOpts.height))
+    var binX = Math.floor(this.scaleValue( myOpts.minX, x, myOpts.maxX, 0, myOpts.width))
+    var binY = Math.floor(this.scaleValue( myOpts.minY, y, myOpts.maxY, 0, myOpts.height))
     binX = Math.min(myOpts.width-1, binX)
     binY = Math.min(myOpts.height-1, binY)  
     return [binX, binY]
@@ -59,7 +59,7 @@ function squareBins(options) {
   this.forEachBin_top2bottom = function(cb) {
     for(var x=0; x<this.bins.length; x++) {
       for( var y=0; y<this.bins[x].length; y++) {
-        cb(this.bins[x][y])
+        cb(this.bins[x][y],x,y)
       }
     }
   }
@@ -73,7 +73,7 @@ function squareBins(options) {
   this.forEachBin_left2right = function(cb) {
     for( var y=0; y<this.bins[0].length; y++) {
       for(var x=0; x<this.bins.length; x++) {
-        cb(this.bins[x][y])
+        cb(this.bins[x][y],x,y)
       }
     }
   }
@@ -91,7 +91,7 @@ function squareBins(options) {
         if(y%2 == 1) { 
           x2 = this.bins.length - x - 1
         }
-        cb(this.bins[x2][y])
+        cb(this.bins[x2][y],x,y)
       }
     }
   }
