@@ -1,0 +1,96 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.18.0.css">
+  <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
+  <script src="squareBins.js"></script>
+<script>
+    var bins1, bins2, bins3, bins4
+    function runTests() {
+      QUnit.test( "hello test", function( assert ) {
+        assert.ok( 1 == "1", "Passed!" );
+      });
+
+      QUnit.test( "create bin", function( assert ) {
+        bins1 = new squareBins()
+        assert.ok( bins1 != null, "Passed!" );
+      });
+
+      QUnit.test( "add  to bin", function( assert ) {
+        bins2 = new squareBins()
+        bins2.addPoint(0.2, 0.3)
+        bins2.addPoint(0.2, 0.3)
+        bins2.addPoint(0.2, 0.3)
+        bins2.addPoint(0.9, 0.0, "woot")
+        assert.ok( bins2.bins[9][0].length == 1, "Passed!" );
+        assert.ok( bins2.bins[2][3].length == 3, "Passed!" );
+        assert.ok( bins2.bins[9][0][0].val == "woot", "Passed!" );
+      });
+
+      QUnit.test( "add to different sized bins", function( assert ) {
+        bins3 = new squareBins({minX:100, maxX:200, minY:300, maxY:700, width:20, height:20})
+        bins3.addPoint(120,300)
+        bins3.addPoint(150,400, "woot")
+        assert.ok( bins3.bins[4][0].length > 0 && bins3.bins[10][5].length > 0, "Passed!" );
+      });
+
+      QUnit.test( "forEachBin_left2right", function( assert ) {
+        bins4 = new squareBins({minX:100, maxX:200, minY:300, maxY:700, width:20, height:20})
+        bins4.addPoint(120,300, 3.14)
+        bins4.addPoint(150,400, 2.72)
+        var count = 0
+        bins4.forEachBin_left2right( function(bin) {
+          if( bin.length > 0 ) {
+            count += bin[0].val
+            //console.log(bin)
+          }
+        })
+        assert.equal( count, 3.14+2.72, "Passed!" );
+      });
+
+      QUnit.test( "forEachBin_top2bottom", function( assert ) {
+        bins4 = new squareBins({minX:100, maxX:200, minY:300, maxY:700, width:20, height:20})
+        bins4.addPoint(120,300, 3.14)
+        bins4.addPoint(150,400, 2.72)
+        var count = 0
+        bins4.forEachBin_top2bottom( function(bin) {
+          if( bin.length > 0 ) {
+            count += bin[0].val
+            //console.log(bin)
+          }
+        })
+        assert.equal( count, 3.14+2.72, "Passed!" );
+      });
+
+      QUnit.test( "forEachBin_zigzag", function( assert ) {
+        bins4 = new squareBins({minX:0, maxX:10, minY:0, maxY:10, width:10, height:10})
+        bins4.addPoint(3, 1, 1)
+        bins4.addPoint(2, 1, 2)
+        bins4.addPoint(0, 1, 3)
+        bins4.addPoint(3, 2, 4)
+        bins4.addPoint(4, 2, 5)
+        bins4.addPoint(5, 2, 6)
+        var res = []
+        bins4.forEachBin_zigzag( function(bin) {
+          if( bin.length > 0 ) {
+            res.push(bin[0].val)
+          }
+        })
+        console.log(res)
+        assert.equal( res.toString(), "1,2,3,4,5,6", "Passed!" );
+      });
+
+
+
+    }
+
+    //setTimeout(runTests,2500)
+    runTests()
+  </script>
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+</body>
+</html>
